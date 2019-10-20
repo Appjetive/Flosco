@@ -22,7 +22,7 @@ class StartButton {
       game.tileSize * heightInTiles,
     );
 
-    sprite = Sprite('start-button.png');
+//    sprite = Sprite('start-button.png');
   }
 
   render(Canvas c) {

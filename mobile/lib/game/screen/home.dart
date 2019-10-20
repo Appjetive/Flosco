@@ -20,7 +20,7 @@ class HomeScreen {
       game.tileSize * widthInTiles,
       game.tileSize * heightInTiles,
     );
-    titleSprite = Sprite('title.png');
+//    titleSprite = Sprite('title.png');
   }
 
   render(Canvas canvas) {

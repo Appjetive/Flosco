@@ -38,11 +38,41 @@ class Spawner {
   }
 
   void spawnElement() {
-    var yPosition = _random.nextInt(
-      game.size.height.toInt() - Meteor.meteorHeight.toInt(),
-    );
+    var dirProb = _random.nextBool();
+    var yPosition = 0;
+    var xPosition = 0;
+    var speed = 50 + _random.nextInt(150);
+    if (dirProb) {
+      yPosition = game.size.height.toInt();
 
-    game.meteors.add(Meteor(game, yPosition));
+      xPosition = game.size.width.toInt() +
+          _random.nextInt(game.size.width.toInt() - Meteor.meteorWidth.toInt());
+    } else {
+      yPosition = game.size.height.toInt() +
+          _random
+              .nextInt(game.size.height.toInt() - Meteor.meteorHeight.toInt());
+
+      xPosition = game.size.width.toInt();
+    }
+
+    var directionY = 1;
+    var directionX = 1;
+
+    var directionProbY = _random.nextBool();
+    var directionProbX = _random.nextBool();
+
+    if (!directionProbY) {
+      yPosition = (yPosition - game.size.height.toInt()) * -1;
+      directionY = -1;
+    }
+
+    if (!directionProbX) {
+      xPosition = (xPosition - game.size.width.toInt()) * -1;
+      directionX = -1;
+    }
+
+    game.meteors
+        .add(Meteor(game, xPosition, yPosition, directionY, directionX, speed));
   }
 
   void destroyAll() {

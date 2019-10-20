@@ -1,13 +1,17 @@
+import 'dart:math';
 import 'dart:ui';
 
 import 'package:flame/components/flare_component.dart';
+import 'package:flame/flare_animation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:mobile/game/flosco_game.dart';
 
 class Collector extends FlareComponent {
   static const collectorWidth = 90.0;
   static const collectorHeight = 40.0;
-  static const speed = 80.0;
+  static const topSpeed = 180.0;
+  static const deceleration = 150;
+  static const acceleration = 180;
 
   final FloscoGame game;
   bool canMove = false;
@@ -15,6 +19,10 @@ class Collector extends FlareComponent {
   double maxWidth;
   double maxHeight;
   double minHeight;
+
+  double speed = 0;
+  var lastMovedRadAngle = 90.0;
+  FlareAnimation flareAnimation;
 
   Collector(this.game)
       : super(
@@ -37,23 +45,52 @@ class Collector extends FlareComponent {
 
   @override
   void update(double t) {
-    if (canMove) {
-      var xPoint = this.x + nextDelta.dx * (speed * t);
-      var yPoint = this.y + nextDelta.dy * (speed * t);
+    angle += 0.25 * t;
+    angle %= 2 * pi;
+    if (nextDelta != null && canMove) {
+      var dx = nextDelta.dx - x;
+      var dy = nextDelta.dy - y;
 
-      if (xPoint < maxWidth && xPoint > 0) {
-        this.x = xPoint;
+      var distance = sqrt(pow(dx, 2) + pow(dy, 2));
+      var decDistance = pow(speed, 2) / (deceleration * 2);
+
+      if (distance > decDistance) {
+        speed = min(speed + acceleration * t, topSpeed);
+      } else {
+        speed = max(speed - deceleration * t, 0);
       }
 
-      if (yPoint < maxHeight && yPoint > minHeight) {
-        this.y = yPoint;
+      var angle = atan2(dy, dx);
+      lastMovedRadAngle = angle;
+      var cosangle = cos(angle);
+      var sinangle = sin(angle);
+      /*var rect = toRect();
+
+
+      var diffBase =
+          Offset(rect.center.dx + nextDelta.dx, rect.center.dy + nextDelta.dy) -
+              rect.center;*/
+
+      x += speed * cosangle * t;
+      y += speed * sinangle * t;
+
+      if (distance < speed * t) {
+        x = nextDelta.dx;
+        y = nextDelta.dy;
+        speed = 0;
+        canMove = false;
       }
     }
     super.update(t);
   }
 
-  void move(DragUpdateDetails details) {
+  void move2(DragUpdateDetails details) {
     nextDelta = details.delta;
+    canMove = true;
+  }
+
+  void move(TapDownDetails details) {
+    nextDelta = details.globalPosition;
     canMove = true;
   }
 

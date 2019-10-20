@@ -10,7 +10,7 @@ class Background {
   Sprite bgSprite;
 
   Background(this.game) {
-    bgSprite = Sprite('background.jpg');
+    bgSprite = Sprite('background.png');
   }
 
   render(Canvas canvas) {

@@ -2,6 +2,9 @@ import 'dart:ui';
 
 import 'package:flame/flame.dart';
 import 'package:flame/game.dart';
+import 'package:flame/palette.dart';
+import 'package:flame/position.dart';
+import 'package:flame/text_config.dart';
 import 'package:flutter/gestures.dart';
 
 import 'actor/collector.dart';
@@ -19,15 +22,23 @@ class FloscoGame extends BaseGame {
   Screens currentScreen = Screens.home;
   HomeScreen homeScreen;
   StartButton startButton;
-  Collector collector;
 
   Size screenSize;
   double tileSize;
-  var boxSize = GameUtils.boxSizeInTiles(1920, 1080);
+  var boxSize = GameUtils.boxSizeInTiles(1339, 1080);
+
+  TextConfig textConfig = TextConfig(
+    color: BasicPalette.white.color,
+    fontSize: 32.0,
+  );
 
   double creationTimer = 0.0;
+  bool gamePaused = false;
+  bool gameStarted = false;
+  bool gameFinished = false;
 
   Spawner spawner;
+  Collector collector;
 
   // Rocks and Elements List
   List<Meteor> meteors;
@@ -64,6 +75,11 @@ class FloscoGame extends BaseGame {
     collector.render(canvas);
 
     meteors.forEach((meteor) => meteor.render(canvas));
+    textConfig.render(
+      canvas,
+      'Score 0',
+      Position(this.size.width.toInt() - 200.0, 10),
+    );
 
     super.render(canvas);
   }
@@ -94,16 +110,18 @@ class FloscoGame extends BaseGame {
     super.onTapDown(details);
     bool isHandled = false;
 
-    if (!isHandled && startButton.rect.contains(details.globalPosition)) {
+    collector.move(details);
+
+    /*if (!isHandled && startButton.rect.contains(details.globalPosition)) {
       if (currentScreen == Screens.home || currentScreen == Screens.lost) {
         startButton.onTapDown();
         isHandled = true;
       }
-    }
+    }*/
   }
 
   onDragUpdate(DragUpdateDetails details) {
-    collector.move(details);
+    collector.move2(details);
   }
 
   onDragEnd(DragEndDetails details) {

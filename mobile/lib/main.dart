@@ -12,8 +12,8 @@ void main() async {
 
   Flame.images.loadAll([
     'background.jpg',
-    'title.png',
-    'start-button.png',
+    'joystick_background.png',
+    'joystick_knob.png',
   ]);
 
   FloscoGame game = FloscoGame();
