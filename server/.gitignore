@@ -100,5 +100,5 @@ public
 # TernJS port file
 .tern-port
 
-.api/scrap/*
+api/scrap
 package-lock.json
