@@ -4,9 +4,12 @@
   "description": "Server for space orbital scrap challenge",
   "main": "app.js",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "lodash": "^4.17.15"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "livereload": "^0.8.2"
+  },
   "scripts": {
     "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
