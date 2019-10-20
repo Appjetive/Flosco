@@ -29,14 +29,35 @@ class Meteor {
   }
 
   initialize() async {
-    var element = _random.nextBool();
-    if (element) {
-      animation = await FlareAnimation.load('assets/animations/asteroid.flr');
-      animation.updateAnimation('Untitled');
-    } else {
-      animation =
-          await FlareAnimation.load('assets/animations/space_trash.flr');
-      animation.updateAnimation('Untitled');
+    var element = _random.nextInt(6);
+    switch (element) {
+      case 1:
+        animation = await FlareAnimation.load('assets/animations/asteroid.flr');
+        animation.updateAnimation('Untitled');
+        break;
+      case 2:
+        animation =
+            await FlareAnimation.load('assets/animations/Aluminium.flr');
+        animation.updateAnimation('Untitled');
+        break;
+      case 3:
+        animation = await FlareAnimation.load('assets/animations/Dianom.flr');
+        animation.updateAnimation('Untitled');
+        break;
+      case 4:
+        animation = await FlareAnimation.load('assets/animations/GOLD.flr');
+        animation.updateAnimation('Untitled');
+        break;
+      default:
+        animation =
+            await FlareAnimation.load('assets/animations/space_trash.flr');
+        animation.updateAnimation('Untitled');
+        break;
+//      case 6:
+//        animation =
+//            await FlareAnimation.load('assets/animations/Titaniume.flr');
+//        animation.updateAnimation('Untitled');
+//        break;
     }
     animation.width = meteorWidth;
     animation.height = meteorHeight;

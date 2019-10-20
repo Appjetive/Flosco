@@ -7,8 +7,8 @@ import 'package:flutter/gestures.dart';
 import 'package:mobile/game/flosco_game.dart';
 
 class Collector extends FlareComponent {
-  static const collectorWidth = 90.0;
-  static const collectorHeight = 40.0;
+  static const collectorWidth = 60.0;
+  static const collectorHeight = 90.0;
   static const topSpeed = 180.0;
   static const deceleration = 150;
   static const acceleration = 180;
@@ -26,16 +26,16 @@ class Collector extends FlareComponent {
 
   Collector(this.game)
       : super(
-          'assets/animations/rocket_animation.flr',
-          'rocket_animation',
+          'assets/animations/SpaceShip.flr',
+          'Untitle',
           collectorWidth,
           collectorHeight,
         );
 
   @override
   void resize(Size size) {
-    this.x = game.tileSize * 0.05;
-    this.y = (game.screenSize.height / 2) - (collectorHeight / 2);
+    this.x = (game.screenSize.width / 2) - (collectorWidth / 2);
+    this.y = (game.screenSize.height / 3) * 2 - (collectorHeight / 2);
     maxWidth = game.screenSize.width - collectorWidth;
     maxHeight = game.screenSize.height - collectorHeight;
     minHeight = collectorHeight / 2;

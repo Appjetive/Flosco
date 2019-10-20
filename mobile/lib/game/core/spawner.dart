@@ -7,8 +7,8 @@ class Spawner {
   final FloscoGame game;
   final int maxSpawnInterval = 2000;
   final int minSpawnInterval = 250;
-  final int intervalChange = 3;
-  final int maxObjectsOnScreen = 5;
+  final int intervalChange = 2;
+  final int maxObjectsOnScreen = 50;
   int currentInterval;
   int nextSpawn;
 
