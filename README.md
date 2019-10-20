@@ -1,6 +1,6 @@
-## SPACE ORBITAL SCRAPPER
+## FLOATING SCRAP COLLECTOR (FLOSCO)
 
-This repository contains the code base for the mobile and server side of the Space Orbital Scrapper game.
+This repository contains the code base for the mobile and server side of the Floating Scrap Collector game.
 
 The goal of this video game is to help people understand the importance of eliminating space debris that is currently orbiting the earth and help eliminate it in an entertaining and educational way.
 
